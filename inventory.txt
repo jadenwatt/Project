@@ -1,0 +1,11 @@
+{"id":1,"makeModel":"Ford Fusion","year":3014,"retailPrice":49254.0}
+{"id":3,"makeModel":"Ford Fusion","year":2307,"retailPrice":48439.0}
+{"id":4,"makeModel":"Honda Accord","year":3281,"retailPrice":52633.0}
+{"id":5,"makeModel":"Honda Accord","year":2017,"retailPrice":25000.0}
+{"id":6,"makeModel":"Kia Stinger","year":2374,"retailPrice":33433.0}
+{"id":7,"makeModel":"BMW m4","year":3558,"retailPrice":26796.0}
+{"id":2,"makeModel":"Chevy Tahoe","year":2022,"retailPrice":50000.0}
+{"id":8,"makeModel":"Ford Fusion","year":2106,"retailPrice":55711.0}
+{"id":9,"makeModel":"Honda Accord","year":2017,"retailPrice":25000.0}
+{"id":10,"makeModel":"BMW m4","year":2079,"retailPrice":51662.0}
+{"id":11,"makeModel":"Ford Fusion","year":3689,"retailPrice":52740.0}
