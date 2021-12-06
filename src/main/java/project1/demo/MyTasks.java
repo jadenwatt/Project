@@ -14,9 +14,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
 
-// extended rest controller class not sure if this is to be done but I needed it
 
-// uncomment this for sheduling to work and comment out the @restcontroller
 @Component
 public class MyTasks {
     int id = 0;

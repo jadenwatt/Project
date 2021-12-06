@@ -13,7 +13,7 @@ import java.util.Scanner;
 import java.io.*;
 import java.util.*;
 
-// need to comment this out for scheduling to work for some reason
+
 @org.springframework.web.bind.annotation.RestController
 public class RestController {
     // may need to remove this
