@@ -16,13 +16,11 @@ import java.util.*;
 
 @org.springframework.web.bind.annotation.RestController
 public class RestController {
-    // may need to remove this
 
     File file = new File("./inventory.txt");
     File holder = new File("./temp.txt");
 
     // PART 1
-    // this method was given but i made my own because (need someone to talk me through given)
     @RequestMapping(value = "/addVehicle", method = RequestMethod.POST)
     public Vehicle addVehicle(@RequestBody Vehicle newVehicle) throws IOException {
         // ObjectMapper provides functionality for reading and writing JSON
@@ -63,7 +61,6 @@ public class RestController {
 
     @RequestMapping(value = "/updateVehicle", method = RequestMethod.PUT)
     public Vehicle updateVehicle(@RequestBody Vehicle newVehicle) throws IOException {
-        // get object of each line file using object mapper and get the to string and compare that to newVehicle id
         // if the same add new vehicle to the file and remove the old one
         ObjectMapper mapper = new ObjectMapper();
         Scanner scanner = new Scanner(file);
@@ -78,7 +75,7 @@ public class RestController {
         FileUtils.writeStringToFile(holder, System.lineSeparator(), CharEncoding.UTF_8, true);
         String newString = "";
         // gets newVehicle's string from file
-        while(forHold.hasNextLine()) {
+        while (forHold.hasNextLine()) {
             newString = forHold.nextLine(); // gets new vehicles JSON
         }
 
@@ -91,12 +88,12 @@ public class RestController {
         }
 
         // go through inventory file again and find line that has the same id and replace it
-        while(scan.hasNextLine()) {
+        while (scan.hasNextLine()) {
             String l = scan.nextLine();
-            // if vehicle at this line in the file contains the same id as the vehicle passed in assign as old string to be replaced
-            // used substring to test beginning of string where id resides so it does not pick up the year value
+            // if vehicle at this line in the file contains the same id as the vehicle passed in assign old string to be replaced
+            // used substring to test beginning of string where id resides so it does not pick up the year value towards the end of the string
             if (l.substring(0, 10).contains(Integer.toString(newVehicle.getId()))) {
-                // if it contains add newVehicle to the new file
+                // if it contains replace that string with newVehicles string
                 original = original.replaceAll(l.substring(1, l.length() - 1), newString.substring(1, newString.length() - 1));
             }
         }
@@ -105,8 +102,7 @@ public class RestController {
         fileOut.write(original.getBytes());
         fileOut.close();
         return newVehicle;
-        }
-
+    }
 
 
     @RequestMapping(value = "/deletedVehicle/{id}", method = RequestMethod.DELETE)
@@ -130,7 +126,7 @@ public class RestController {
     // if list is less than size 10 loop through whole list, if it is greater loop through 10
     @RequestMapping(value = "/getLatestVehicles", method = RequestMethod.GET)
     public List<Vehicle> getLatestVehicles() throws IOException {
-        // use read value to get the vehicle and add it to a list and using arraylist
+        // use read value to get the vehicle and add it to a list using arraylist
         // then loop through list removing the end until size is <=10
         ArrayList<Vehicle> list = new ArrayList<>();
         Scanner scanner = new Scanner(file);
@@ -141,7 +137,8 @@ public class RestController {
             car = mapper.readValue(line, Vehicle.class);
             list.add(car);
         }
-        // if there are 10 or less vehicles in inventory just assign list to inventory
+        // remove all values in list until list has 10 values, if it starts with less than 10 then it just prints
+        // goes from end of list because the most recent vehicle prints at the bottom of the file
         int index = list.size() - 1;
         while (list.size() > 10) {
             list.remove(index);

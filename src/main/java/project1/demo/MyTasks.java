@@ -5,8 +5,6 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.CharEncoding;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-import project1.demo.RestController;
-import project1.demo.Vehicle;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -21,7 +19,7 @@ public class MyTasks {
     ObjectMapper mapper = new ObjectMapper();
     File file = new File("./inventory.txt");
 
-    // not sure what 5000 stands for, got it from lecture
+    // run every 5 seconds
     @Scheduled(fixedDelay = 5000)
     public void addVehicle() throws IOException {
         FileWriter fw = new FileWriter("./inventory.txt", true);
@@ -41,7 +39,6 @@ public class MyTasks {
         int year = r.nextInt(2016) + 1986;
         double retail = r.nextInt(45000) + 15000;
         Vehicle vehicle = new Vehicle(id, makeModel, year, retail);
-        // called add vehicle from rest controller on this vehicle
         mapper.writeValue(fw, vehicle);
         FileUtils.writeStringToFile(file, System.lineSeparator(), CharEncoding.UTF_8, true);
     }
@@ -53,7 +50,7 @@ public class MyTasks {
         int id = r.nextInt(100);
         ObjectMapper mapper = new ObjectMapper();
         Scanner scanner = new Scanner(file);
-        // iterate through vehicle list to find vehicle with matching id then delete
+        // all of these methods are essentially the same as in the RestController class
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
             if (!line.substring(0, 10).contains(Integer.toString(id))) {
@@ -72,7 +69,6 @@ public class MyTasks {
         String makeModel = "Honda Accord";
         int year = 2017;
         double retail = 25000;
-        // call update vehicle with new vehicle
         Vehicle updated = new Vehicle(id, makeModel, year, retail);
         FileWriter fw = new FileWriter("./temp.txt", true);
         Scanner hold = new Scanner(new File("./temp.txt"));
@@ -94,7 +90,6 @@ public class MyTasks {
         while (scanned.hasNextLine()) {
             String l = scanned.nextLine();
             if (l.substring(0, 10).contains(Integer.toString(updated.getId()))) {
-                // if it contains add newVehicle to the new file
                 line = line.replaceAll(l.substring(1, l.length() - 1), newString.substring(1, newString.length() - 1));
             }
         }
@@ -115,7 +110,7 @@ public class MyTasks {
             car = mapper.readValue(line, Vehicle.class);
             list.add(car);
         }
-        // if there are 10 or less vehicles in inventory just assign list to inventory
+
         int index = list.size() - 1;
         while (list.size() > 10) {
             list.remove(index);
